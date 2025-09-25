@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabela de Preços - Tratamentos Capilares</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460, #533483);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, #2c2c54, #40407a, #706fd3);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+            overflow: hidden;
+            border: 3px solid #ffd700;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #8e44ad, #9b59b6, #e74c3c, #c0392b);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            border-bottom: 4px solid #f39c12;
+        }
+        
+        .header::before {
+            content: '💇‍♀️';
+            font-size: 50px;
+            position: absolute;
+            top: 20px;
+            left: 30px;
+        }
+        
+        .header::after {
+            content: '✨';
+            font-size: 50px;
+            position: absolute;
+            top: 20px;
+            right: 30px;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 32px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            margin: 10px 0 0 0;
+            font-size: 18px;
+            opacity: 0.9;
+        }
+        
+        .price-section {
+            padding: 30px;
+            border-bottom: 3px solid #34495e;
+            background: linear-gradient(135deg, #2c3e50, #34495e, #4a6741);
+            color: white;
+            margin: 10px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+        
+        .price-section:last-child {
+            border-bottom: none;
+        }
+        
+        .section-title {
+            background: linear-gradient(135deg, #e74c3c, #c0392b, #8e44ad, #9b59b6);
+            color: white;
+            text-align: center;
+            padding: 18px;
+            border-radius: 15px;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 20px rgba(231, 76, 60, 0.4);
+            border: 2px solid #f39c12;
+        }
+        
+        .price-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            border: 2px solid #f39c12;
+        }
+        
+        .price-table th {
+            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+            color: #ffd700;
+            padding: 18px 15px;
+            text-align: left;
+            font-weight: bold;
+            font-size: 16px;
+            border-bottom: 2px solid #f39c12;
+        }
+        
+        .price-table td {
+            padding: 15px;
+            border-bottom: 1px solid #34495e;
+            font-size: 15px;
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            color: white;
+        }
+        
+        .price-table tr:nth-child(even) td {
+            background: linear-gradient(135deg, #34495e, #2c3e50, #4a6741);
+        }
+        
+        .price-table tr:hover td {
+            background: linear-gradient(135deg, #8e44ad, #9b59b6) !important;
+            transition: all 0.3s ease;
+        }
+        
+        .service-name {
+            font-weight: bold;
+            color: #ffd700;
+            width: 40%;
+        }
+        
+        .duration {
+            color: #ecf0f1;
+            font-style: italic;
+            width: 20%;
+        }
+        
+        .price {
+            font-weight: bold;
+            font-size: 18px;
+            color: #e74c3c;
+            text-align: center;
+            width: 20%;
+        }
+        
+        .description {
+            color: #bdc3c7;
+            font-size: 13px;
+            width: 20%;
+        }
+        
+        .promo-box {
+            background: linear-gradient(135deg, #f39c12, #e67e22, #d35400);
+            border: 3px solid #c0392b;
+            border-radius: 20px;
+            padding: 25px;
+            margin: 25px 10px;
+            text-align: center;
+            position: relative;
+            animation: pulse 2s infinite;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+        
+        .promo-box::before {
+            content: '🎉';
+            font-size: 30px;
+            position: absolute;
+            top: 15px;
+            left: 20px;
+        }
+        
+        .promo-box h3 {
+            margin: 0 0 15px 0;
+            color: #1a1a2e;
+            font-size: 22px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .promo-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .promo-list li {
+            padding: 8px 0;
+            color: #2c3e50;
+            font-weight: bold;
+            border-bottom: 1px solid #c0392b;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+        
+        .promo-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .combo-section {
+            background: linear-gradient(135deg, #27ae60, #2ecc71, #16a085, #1abc9c);
+            border: 3px solid #e74c3c;
+            border-radius: 20px;
+            padding: 25px;
+            margin: 25px 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .combo-title {
+            color: #1a1a2e;
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .contact-info {
+            background: linear-gradient(135deg, #8e44ad, #9b59b6, #e74c3c, #c0392b);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            margin-top: 20px;
+            border: 3px solid #f39c12;
+        }
+        
+        .contact-info h3 {
+            margin: 0 0 15px 0;
+            font-size: 24px;
+        }
+        
+        .contact-details {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 16px;
+        }
+        
+        .download-buttons {
+            text-align: center;
+            padding: 30px;
+            background: linear-gradient(135deg, #2c3e50, #34495e, #4a6741);
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            margin: 10px;
+            background: linear-gradient(135deg, #e74c3c, #c0392b, #8e44ad, #9b59b6);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 16px;
+            border: 2px solid #f39c12;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(231, 76, 60, 0.4);
+        }
+        
+        .btn:hover {
+            background: linear-gradient(135deg, #9b59b6, #8e44ad, #c0392b, #e74c3c);
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(231, 76, 60, 0.6);
+            border-color: #ffd700;
+        }
+        
+        .highlight-price {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            border-radius: 8px;
+            padding: 5px 10px;
+            font-weight: bold;
+            color: #1a1a2e !important;
+            text-shadow: 1px 1px 2px rgba(255,255,255,0.3);
+            border: 1px solid #c0392b;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                border-radius: 15px;
+            }
+            
+            .price-table th,
+            .price-table td {
+                padding: 10px 8px;
+                font-size: 13px;
+            }
+            
+            .header::before,
+            .header::after {
+                display: none;
+            }
+            
+            .contact-details {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>💄 TABELA DE PREÇOS ANDREIA ✂️</h1>
+            <p>Tratamentos Capilares Femininos • Atualizada Setembro 2025</p>
+        </div>
+        
+        <!-- CORTES -->
+        <div class="price-section">
+            <div class="section-title">✂️ CORTES FEMININOS</div>
+            <table class="price-table">
+                <thead>
+                    <tr>
+                        <th>SERVIÇO</th>
+                        <th>DURAÇÃO</th>
+                        <th>PREÇO</th>
+                        <th>DESCRIÇÃO</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="service-name">Corte Simples</td>
+                        <td class="duration">30-45 min</td>
+                        <td class="price">R$ 35,00</td>
+                        <td class="description">Corte básico com acabamento</td>
+                    </tr>
+                    <tr>
+                        <td class="service-name">Corte + Lavagem</td>
+                        <td class="duration">45-60 min</td>
+                        <td class="price">R$ 45,00</td>
+                        <td class="description">Corte com shampoo e condicionador</td>
+                    </tr>
+                    <tr>
+                        <td class="service-name">Corte Moderno</td>
+                        <td class="duration">60-75 min</td>
+                        <td class="price">R$ 55,00</td>
+                        <td class="description">Cortes estilosos e modernos</td>
+                    </tr>
+                    <tr>
+                        <td class="service-name">Corte + Escova</td>
+                        <td class="duration">75-90 min</td>
+                        <td class="price">R$ 65,00</td>
+                        <td class="description">Corte completo com modelagem</td>
+                    </tr>
+                    <tr>
+                        <td class="service-name">Corte Infantil</td>
+                        <td class="duration">30 min</td>
+                        <td class="price">R$ 25,00</td>
+                        <td class="description">Corte para crianças até 12 anos</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- ESCOVA E MODELAGEM -->
+        <div class="price-section">
+            <div class="section-title">🌬️ ESCOVA E MODELAGEM</div>
+            <table class="price-table">
+                <thead>
+                    <tr>
+                        <th>SERVIÇO</th>
+                        <th>DURAÇÃO</th>
+                        <th>PREÇO</th>
+                        <th>DESCRIÇÃO</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="service-name">Escova Simples</td>
+                        <td class="duration">45 min</td>
+                        <td class="price">R$ 30,00</td>
+                        <td class="description">Escova básica cabelo curto/médio</td>
+                    </tr>
+                    <tr>
+                        <td class="service-name">Escova Cabelo Longo</td>
+                        <td class="duration">60 min</td>
+                        <td class="price">R$ 40,00</td>
+                        <td class="description">Escova para cabelos longos</td>
+                    </tr>
+                    <tr>
+                        <td class="service-name">Escova Modelada</td>
+                        <td class="duration">60-75 min</td>
+                        <td class="price">R$ 45,00</td>
+                        <td class="description">Com babyliss e finalização</td>
+                    </tr>
+                    <tr>
+                        <td class="service-name">Escova + Chapinha</td>
+                        <td class="duration">75 min</td>
+                        <td class="price">R$ 50,00</td>
+                        <td class="description">Escova com alisamento</td>
+                    </tr>
+                    <tr>
+                        <td class="service-name">Cachos Definidos</td>
+                        <td class="duration">90 min</td>
+                        <td class="price">R$ 55,00</td>
+                        <td class="description">Modelagem para cabelos cacheados</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- HIDRATAÇÃO E TRATAMENTOS -->
+        <div class="price-section">
+            <div class="section-title">💧 HIDRATAÇÃO E TRATAMENTOS</div>
+            <table class="price-table">
+                <thead>
+                    <tr>
+                        <th>SERVIÇO</th>
+                        <th>DURAÇÃO</th>
+                        <th>PREÇO</th>
+                        <th>DESCRIÇÃO</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="service-name">Hidratação Simples</td>
+                        <td class="duration">45-60 min</td>
+                        <td class="price">R$ 50,00</td>
+                        <td class="description">Máscara hidratante básica</td>
+                    </tr>
+                    <tr>
+                        <td class="service-name">Hidratação Profunda</td>
+                        <td class="duration">75-90 min</td>
+                        <td class="price">R$ 70,00</td>
+                        <td class="description">Tratamento intensivo com ampola</td>
+                    </tr>
+                    <tr>
+                        <td class="service-name">Cauterização</td>
+                        <td class="duration">90-120 min</td>
+                        <td class="price">R$ 85,00</td>
+                        <td class="description">Selagem dos fios danificados</td>
+                    </tr>
+                    <tr>
+                        <td class="service-name">Cronograma Capilar</td>
+                        <td class="duration">120 min</td>
+                        <td class="price">R$ 95,00</td>
+                        <td class="description">Hidratação + Nutrição + Reconstrução</td>
+                    </tr>
+                    <tr>
+                        <td class="service-name">Botox Capilar</td>
+                        <td class="duration">120-150 min</td>
+                        <td class="price">R$ 120,00</td>
+                        <td class="description">Tratamento reparador intensivo</td>
+                    </tr>
+                    <tr>
+                        <td class="service-name">Olaplex</td>
+                        <td class="duration">90 min</td>
+                        <td class="price">R$ 150,00</td>
+                        <td class="description">Reconstrução molecular</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- COLORAÇÃO -->
+        <div class="price-section">
+            <div class="section-title">🎨 COLORAÇÃO</div>
+            <table class="price-table">
+                <thead>
+                    <tr>
+                        <th>SERVIÇO</th>
+                        <th>DURAÇÃO</th>
+                        <th>PREÇO</th>
+                        <th>DESCRIÇÃO</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="service-name">Retoque de Raiz</td>
+                        <td class="duration">90-120 min</td>
+                        <td class="price">R$ 80,00</td>
+                        <td class="description">Cobertura da raiz crescida</td>
+                    </tr>
+                    <tr>
+                        <td class="service-name">Tintura Global</td>
+                        <td class="duration">120-150 min</td>
+                        <td class="price">R$ 120,00</td>
+                        <td class="description">Coloração completa do cabelo</td>
+                    </tr>
+                    <tr>
+                        <td class="service-name">Reflexo/Matização</td>
+                        <td class="duration">60-75 min</td>
+                        <td class="price">R$ 65,00</td>
+                        <td class="description">Correção de tons e reflexos</td>
+                    </tr>
+                    <tr>
+                        <td class="service-name">Mechas Tradicionais</td>
+                        <td class="duration">180-240 min</td>
+                        <td class="price">R$ 180,00</td>
+                        <td class="description">Mechas com touca (cabelo curto/médio)</td>
+                    </tr>
+                    <tr>
+                        <td class="service-name">Mechas Cabelo Longo</td>
+                        <td class="duration">240-300 min</td>
+                        <td class="price">R$ 250,00</td>
+                        <td class="description">Mechas em cabelos longos</td>
+                    </tr>
+                    <tr>
+                        <td class="service-name">Luzes Finas</td>
+                        <td class="duration">150-180 min</td>
+                        <td class="price">R$ 140,00</td>
+                        <td class="description">Mechas delicadas e sutis</td>
+                    </tr>
+                    <tr>
+                        <td class="service-name">Balayage</td>
+                        <td class="duration">240-300 min</td>
+                        <td class="price">R$ 280,00</td>
+                        <td class="description">Técnica de iluminação natural</td>
+                    </tr>
+                    <tr>
+                        <td class="service-name">Ombré Hair</td>
+                        <td class="duration">180-240 min</td>
+                        <td class="price">R$ 200,00</td>
+                        <td class="description">Degradê de cores moderno</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- ALISAMENTOS -->
+        <div class="price-section">
+            <div class="section-title">💫 ALISAMENTOS E RELAXAMENTOS</div>
+            <table class="price-table">
+                <thead>
+                    <tr>
+                        <th>SERVIÇO</th>
+                        <th>DURAÇÃO</th>
+                        <th>PREÇO</th>
+                        <th>DESCRIÇÃO</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="service-name">Relaxamento Touch-up</td>
+                        <td class="duration">120-150 min</td>
+                        <td class="price">R$ 85,00</td>
+                        <td class="description">Relaxamento apenas da raiz</td>
+                    </tr>
+                    <tr>
+                        <td class="service-name">Relaxamento Total</td>
+                        <td class="duration">180-240 min</td>
+                        <td class="price">R$ 150,00</td>
+                        <td class="description">Relaxamento completo</td>
+                    </tr>
+                    <tr>
+                        <td class="service-name">Escova Progressiva</td>
+                        <td class="duration">240-300 min</td>
+                        <td class="price">R$ 180,00</td>
+                        <td class="description">Alisamento semi-definitivo</td>
+                    </tr>
+                    <tr>
+                        <td class="service-name">Escova Inteligente</td>
+                        <td class="duration">180-240 min</td>
+                        <td class="price">R$ 220,00</td>
+                        <td class="description">Redução de volume sem química</td>
+                    </tr>
+                    <tr>
+                        <td class="service-name">Definitiva</td>
+                        <td class="duration">300-360 min</td>
+                        <td class="price">R$ 280,00</td>
+                        <td class="description">Alisamento permanente</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- COMBOS E PROMOÇÕES -->
+        <div class="combo-section">
+            <div class="combo-title">💝 COMBOS E PROMOÇÕES ESPECIAIS</div>
+            <table class="price-table">
+                <thead>
+                    <tr>
+                        <th>COMBO</th>
+                        <th>DURAÇÃO</th>
+                        <th>PREÇO</th>
+                        <th>ECONOMIA</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="service-name">Corte + Escova + Hidratação</td>
+                        <td class="duration">120-150 min</td>
+                        <td class="price highlight-price">R$ 100,00</td>
+                        <td class="description">Economize R$ 25,00</td>
+                    </tr>
+                    <tr>
+                        <td class="service-name">Tintura + Corte + Escova</td>
+                        <td class="duration">180-210 min</td>
+                        <td class="price highlight-price">R$ 170,00</td>
+                        <td class="description">Economize R$ 35,00</td>
+                    </tr>
+                    <tr>
+                        <td class="service-name">Mechas + Matização + Hidratação</td>
+                        <td class="duration">240-300 min</td>
+                        <td class="price highlight-price">R$ 250,00</td>
+                        <td class="description">Economize R$ 45,00</td>
+                    </tr>
+                    <tr>
+                        <td class="service-name">Progressiva + Corte + Hidratação</td>
+                        <td class="duration">300-360 min</td>
+                        <td class="price highlight-price">R$ 320,00</td>
+                        <td class="description">Economize R$ 60,00</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- PROMOÇÕES ESPECIAIS -->
+        <div class="promo-box">
+            <h3>🎊 PROMOÇÕES DO MÊS</h3>
+            <ul class="promo-list">
+                <li>👥 TRAGA UMA AMIGA: 20% desconto para ambas</li>
+                <li>🎂 ANIVERSARIANTES: 20% desconto no mês do aniversário</li>
+                <li>📅 SEGUNDAS-FEIRAS: 10% desconto em hidratações</li>
+                <li>🌟 PRIMEIRA VISITA: 20% desconto em qualquer serviço</li>
+                <li>💳 CARTÃO FIDELIDADE: A cada 10 serviços, ganhe 1 grátis</li>
+            </ul>
+        </div>
+        
+        <!-- INFORMAÇÕES DE CONTATO -->
+        <div class="contact-info">
+            <h3>📞 AGENDAMENTOS E INFORMAÇÕES</h3>
+            <div class="contact-details">
+                <div class="contact-item">
+                    <span>📱</span>
+                    <span>(65) 99923-6712</span>
+                </div>
+                <div class="contact-item">
+                    <span>📍</span>
+                    <span>Rua José Domingos de Figueiredo, 15 - COOPHAMIL</span>
+                </div>
+                <div class="contact-item">
+                    <span>⏰</span>
+                    <span>Seg a Sex: 8h às 18h | Sáb: 8h às 16h</span>
+                </div>
+                <div class="contact-item">
+                    <span>📧</span>
+                    <span>anclautec@yahoo.com</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- BOTÕES DE DOWNLOAD -->
+        <div class="download-buttons">
+            <h3>📥 BAIXE SUA TABELA DE PREÇOS</h3>
+            <button class="btn" onclick="downloadPDF()">📄 Baixar PDF</button>
+            <button class="btn" onclick="window.print()">🖨️ Imprimir</button>
+        </div>
+    </div>
+
+    <script>
+        function downloadPDF() {
+            // Simular download de PDF
+            const element = document.querySelector('.container');
+            const opt = {
+                margin: 1,
+                filename: 'Tabela_Precos_Cabelo_Feminino.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+            };
+            
+            // Criar dados para download
+            const content = `
+TABELA DE PREÇOS - TRATAMENTOS CAPILARES FEMININOS
+
+=== CORTES ===
+Corte Simples: R$ 35,00 (30-45 min)
+Corte + Lavagem: R$ 45,00 (45-60 min)
+Corte Moderno: R$ 55,00 (60-75 min)
+Corte + Escova: R$ 65,00 (75-90 min)
+Corte Infantil: R$ 25,00 (30 min)
+
+=== ESCOVA E MODELAGEM ===
+Escova Simples: R$ 30,00 (45 min)
+Escova Cabelo Longo: R$ 40,00 (60 min)
+Escova Modelada: R$ 45,00 (60-75 min)
+Escova + Chapinha: R$ 50,00 (75 min)
+Cachos Definidos: R$ 55,00 (90 min)
+
+=== HIDRATAÇÃO E TRATAMENTOS ===
+Hidratação Simples: R$ 50,00 (45-60 min)
+Hidratação Profunda: R$ 70,00 (75-90 min)
+Cauterização: R$ 85,00 (90-120 min)
+Cronograma Capilar: R$ 95,00 (120 min)
+Botox Capilar: R$ 120,00 (120-150 min)
+Olaplex: R$ 150,00 (90 min)
+
+=== COLORAÇÃO ===
+Retoque de Raiz: R$ 80,00 (90-120 min)
+Tintura Global: R$ 120,00 (120-150 min)
+Reflexo/Matização: R$ 65,00 (60-75 min)
+Mechas Tradicionais: R$ 180,00 (180-240 min)
+Mechas Cabelo Longo: R$ 250,00 (240-300 min)
+Luzes Finas: R$ 140,00 (150-180 min)
+Balayage: R$ 280,00 (240-300 min)
+Ombré Hair: R$ 200,00 (180-240 min)
+
+=== ALISAMENTOS ===
+Relaxamento Touch-up: R$ 85,00 (120-150 min)
+Relaxamento Total: R$ 150,00 (180-240 min)
+Escova Progressiva: R$ 180,00 (240-300 min)
+Escova Inteligente: R$ 220,00 (180-240 min)
+Definitiva: R$ 280,00 (300-360 min)
+
+=== COMBOS ESPECIAIS ===
+Corte + Escova + Hidratação: R$ 100,00 (Economize R$ 25,00)
+Tintura + Corte + Escova: R$ 170,00 (Economize R$ 35,00)
+Mechas + Matização + Hidratação: R$ 250,00 (Economize R$ 45,00)
+Progressiva + Corte + Hidratação: R$ 320,00 (Economize R$ 60,00)
+
+=== PROMOÇÕES ===
+• Traga uma amiga: 20% desconto para ambas
+• Aniversariantes: 20% desconto no mês
+• Segundas-feiras: 10% desconto em hidratações
+• Primeira visita: 20% desconto
+• Cartão fidelidade: 10º serviço grátis
+
+AGENDAMENTOS: (65) 99923-6712
+            `;
+            
+            const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'Tabela_Precos_Cabelo_Feminino.txt';
+            link.click();
+            
+            alert('📄 Tabela de preços baixada com sucesso!\nVocê pode converter para PDF usando qualquer editor de texto!');
+        }
+                    
+        // Animações e efeitos
+        window.addEventListener('load', function() {
+            // Animação de entrada das seções
+            const sections = document.querySelectorAll('.price-section');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            });
+            
+            sections.forEach(section => {
+                section.style.opacity = '0';
+                section.style.transform = 'translateY(30px)';
+                section.style.transition = 'all 0.6s ease';
+                observer.observe(section);
+            });
+            
+            // Efeito hover personalizado nas linhas da tabela
+            const tableRows = document.querySelectorAll('.price-table tr');
+            tableRows.forEach(row => {
+                row.addEventListener('mouseenter', function() {
+                    this.style.transform = 'scale(1.02)';
+                });
+                
+                row.addEventListener('mouseleave', function() {
+                    this.style.transform = 'scale(1)';
+                });
+            });
+        });
+        
+        // Função para calcular combos
+        function calculateCombo() {
+            const services = {
+                'corte': 35,
+                'escova': 30,
+                'hidratacao': 50,
+                'tintura': 120,
+                'mechas': 180,
+                'matizacao': 65,
+                'progressiva': 180
+            };
+            
+            // Exemplo de cálculo de combo
+            const combo1 = services.corte + services.escova + services.hidratacao; // 115
+            const comboPrice1 = 100; // Economiza 15
+            
+            return {
+                original: combo1,
+                combo: comboPrice1,
+                savings: combo1 - comboPrice1
+            };
+        }
+        
+        // Adicionar efeito de destaque nos preços em promoção
+        document.querySelectorAll('.highlight-price').forEach(price => {
+            price.addEventListener('click', function() {
+                this.style.animation = 'pulse 1s';
+                setTimeout(() => {
+                    this.style.animation = '';
+                }, 1000);
+            });
+        });
+        
+        // Função para copiar informações de contato
+        function copyContact() {
+            const contact = `
+📞 AGENDAMENTOS E INFORMAÇÕES
+Telefone: (65) 99923-6712
+Endereço: Rua José Domingos de Figueiredo, 15 - Coophamil
+Horário: Seg a Sex: 8h às 18h | Sáb: 8h às 16h
+Email: contato@salaobeleza.com
+            `;
+            
+            navigator.clipboard.writeText(contact).then(() => {
+                alert('📋 Informações de contato copiadas!');
+            });
+        }
+        
+        // Adicionar botão para copiar contato
+        const contactInfo = document.querySelector('.contact-info');
+        const copyBtn = document.createElement('button');
+        copyBtn.textContent = '📋 Copiar Contato';
+        copyBtn.className = 'btn';
+        copyBtn.style.marginTop = '15px';
+        copyBtn.onclick = copyContact;
+        contactInfo.appendChild(copyBtn);
+    </script>
+</body>
+</html>
